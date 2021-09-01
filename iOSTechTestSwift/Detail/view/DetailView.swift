@@ -205,7 +205,10 @@ extension DetailView: UITableViewDelegate, UITableViewDataSource {
             
         }
         else  if options[indexPath.row] == "Call" {
-            guard let phoneNumber = URL(string: "tel://"+self.phoneNumer!) else {return}
+            let numeroDeTelefono:String = self.phoneNumer!.components(separatedBy:CharacterSet.decimalDigits.inverted).joined()
+            
+            print(numeroDeTelefono)
+            guard let phoneNumber = URL(string: "tel://\(numeroDeTelefono)") else {return}
             UIApplication.shared.open(phoneNumber)
         }
         if options[indexPath.row] == "Directions" {
