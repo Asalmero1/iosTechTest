@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeMainView" customModule="iOSTechTestSwift" customModuleProvider="target">
             <connections>
+                <outlet property="activity" destination="tgI-gj-hrw" id="1T0-rv-5fv"/>
                 <outlet property="tableView" destination="MoB-E5-rEg" id="vEA-Hb-ijY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,6 +28,13 @@
                         <outlet property="delegate" destination="-1" id="Jog-in-LIT"/>
                     </connections>
                 </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="tgI-gj-hrw">
+                    <rect key="frame" x="177.5" y="292" width="59" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="ezA-Ah-Dh2"/>
+                        <constraint firstAttribute="width" constant="59" id="jbk-GT-lmD"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -35,8 +43,10 @@
                 <constraint firstItem="MoB-E5-rEg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7Al-c9-gRG"/>
                 <constraint firstItem="MoB-E5-rEg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8pZ-Fp-xMG"/>
                 <constraint firstItem="MoB-E5-rEg" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="FPg-6P-ahx"/>
+                <constraint firstItem="tgI-gj-hrw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="248" id="SvT-h6-ch1"/>
                 <constraint firstItem="MoB-E5-rEg" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="ggr-H9-ote"/>
                 <constraint firstAttribute="bottom" secondItem="MoB-E5-rEg" secondAttribute="bottom" id="wZD-8u-ies"/>
+                <constraint firstItem="tgI-gj-hrw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zdf-CB-lzy"/>
             </constraints>
             <point key="canvasLocation" x="95.652173913043484" y="96.428571428571431"/>
         </view>

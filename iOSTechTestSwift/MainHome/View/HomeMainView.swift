@@ -13,6 +13,7 @@ import CoreLocation
 import Kingfisher
 class HomeMainView: UIViewController, CLLocationManagerDelegate {
   
+    @IBOutlet var activity: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     private var router = HomeRouter()
     private var viewModel = HomeViewModel()
@@ -50,6 +51,7 @@ class HomeMainView: UIViewController, CLLocationManagerDelegate {
         viewModel.bind(view: self, router: router)
         configTableView()
         getData()
+        self.locManager.requestAlwaysAuthorization()
         
          //placesClient = GMSPlacesClient.shared()
        
@@ -84,6 +86,8 @@ class HomeMainView: UIViewController, CLLocationManagerDelegate {
     private func reloadTable(){
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.activity.stopAnimating()
+            self.activity.isHidden = true
         }
     }
     
@@ -138,20 +142,20 @@ extension HomeMainView: UITableViewDelegate, UITableViewDataSource {
         
          
             */
+        beginLocationUpdates(locationManager: locManager)
         let url = URL(string: self.places[indexPath.row].Thumbnail)
         cell.imagePlace.kf.setImage(with: url,placeholder: UIImage(named: "placeholder"))
-        var currentLocation: CLLocation!
-        if
-           CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-           CLLocationManager.authorizationStatus() ==  .authorizedAlways
-        {
-            currentLocation = self.locManager.location
-        }
+       
       
         //print(currentLocation.coordinate.latitude)
        // print(currentLocation.coordinate.longitude)
-        let latitude = currentLocation.coordinate.latitude // If there is an error in this point its because you didnt accept the location permissions (only when uses simulator)
-        let longitude = currentLocation.coordinate.longitude
+        
+            // If there is an error in this point its because you didnt accept the location permissions (only when uses simulator)
+            
+            var currentLocation: CLLocation!
+        if  let latitude = locManager.location?.coordinate.latitude,
+            let longitude = locManager.location?.coordinate.longitude{
+       
             let fetchedLatitude  = self.places[indexPath.row].Latitude
             let fetchedLongitude = self.places[indexPath.row].Longitude
         
@@ -159,14 +163,22 @@ extension HomeMainView: UITableViewDelegate, UITableViewDataSource {
         let YummiLocation = CLLocation(latitude: fetchedLatitude, longitude: fetchedLongitude)
         let distance  = userlocation.distance(from: YummiLocation) / 1069
         cell.distancePlace.text = "\(String(format:"%.02f", distance)) mi"
+        }
+      
         
-            
+        
        
         
         return cell
         
        
     }
+    private func beginLocationUpdates(locationManager: CLLocationManager) {
+        //mapView.showsUserLocation = true //<--- the problem is here
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+    }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 126
