@@ -78,7 +78,7 @@ class DetailView: UIViewController {
         
     }
     func showPlaceData(){
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             
             self.coordenada1 = self.latitudePlace!
             self.coordenada2 = self.longiteplace!
@@ -106,8 +106,8 @@ class DetailView: UIViewController {
             
             //print(currentLocation.coordinate.latitude)
             // print(currentLocation.coordinate.longitude)
-            let latitude = currentLocation.coordinate.latitude
-            let longitude = currentLocation.coordinate.longitude
+            if  let latitude = self.locManager.location?.coordinate.latitude,
+                let longitude = self.locManager.location?.coordinate.longitude{
             let fetchedLatitude  = self.coordenada1
             let fetchedLongitude = self.coordenada2
             
@@ -117,7 +117,7 @@ class DetailView: UIViewController {
             self.distancePlaceTxt.text = "\(String(format:"%.02f", distance)) mi"
             
             
-            
+            }
             
             
             //MapViewConfig
